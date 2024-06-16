@@ -45,6 +45,12 @@ return {
             },
         })
 
+        vim.filetype.add({
+            extension = {
+                templ = "templ"
+            }
+        })
+
         local cmp = require("cmp")
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
         cmp.setup({
