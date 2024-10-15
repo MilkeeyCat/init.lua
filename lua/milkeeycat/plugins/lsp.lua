@@ -21,7 +21,7 @@ return {
             ensure_installed = {
                 "lua_ls",
                 "rust_analyzer",
-                "tsserver",
+                "ts_ls",
                 "clangd",
                 "gopls",
             },
@@ -43,12 +43,6 @@ return {
                     })
                 end,
             },
-        })
-
-        vim.filetype.add({
-            extension = {
-                templ = "templ"
-            }
         })
 
         local cmp = require("cmp")
