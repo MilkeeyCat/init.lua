@@ -13,7 +13,7 @@ autocmd("TextYankPost", {
     group = yank_group,
     pattern = "*",
     callback = function()
-        vim.highlight.on_yank({
+        vim.hl.on_yank({
             higroup = "IncSearch",
             timeout = 40,
         })
@@ -46,10 +46,14 @@ autocmd("LspAttach", {
             vim.diagnostic.open_float()
         end, opts)
         vim.keymap.set("n", "[d", function()
-            vim.diagnostic.goto_next()
+            vim.diagnostic.jump({
+                count = 1,
+            })
         end, opts)
         vim.keymap.set("n", "]d", function()
-            vim.diagnostic.goto_prev()
+            vim.diagnostic.jump({
+                count = -1,
+            })
         end, opts)
         vim.keymap.set("n", "<leader>vca", function()
             vim.lsp.buf.code_action()
