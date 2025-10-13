@@ -13,6 +13,13 @@ return {
         "j-hui/fidget.nvim",
         "folke/neodev.nvim",
     },
+    cond = function()
+        if os.getenv("NO_LSP") then
+            return false
+        else
+            return true
+        end
+    end,
     config = function()
         require("neodev").setup()
         require("fidget").setup({})
