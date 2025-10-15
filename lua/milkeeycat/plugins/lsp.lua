@@ -31,24 +31,16 @@ return {
                 "ts_ls",
                 "clangd",
                 "gopls",
-            },
-            handlers = {
-                function(server_name)
-                    require("lspconfig")[server_name].setup({})
-                end,
-                ["lua_ls"] = function()
-                    local lspconfig = require("lspconfig")
+            }
+        })
 
-                    lspconfig.lua_ls.setup({
-                        settings = {
-                            Lua = {
-                                completion = {
-                                    callSnippet = "Replace",
-                                },
-                            },
-                        },
-                    })
-                end,
+        vim.lsp.config("lua_ls", {
+            settings = {
+                Lua = {
+                    completion = {
+                        callSnippet = "Replace",
+                    },
+                },
             },
         })
 
