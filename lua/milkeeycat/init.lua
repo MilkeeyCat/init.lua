@@ -67,5 +67,8 @@ autocmd("LspAttach", {
         vim.keymap.set("i", "<C-h>", function()
             vim.lsp.buf.signature_help()
         end, opts)
+        vim.keymap.set("n", "<leader>imp", function()
+            vim.lsp.buf.implementation()
+        end, opts)
     end,
 })
