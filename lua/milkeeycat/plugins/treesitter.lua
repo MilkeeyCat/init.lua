@@ -2,8 +2,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
-        local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-        local configs = require("nvim-treesitter.configs")
+        local parser_config = require("nvim-treesitter.parsers")
 
         vim.filetype.add({
             extension = {
@@ -26,22 +25,30 @@ return {
             },
             filetype = "mk",
         }
-
-        configs.setup({
-            ensure_installed = {
-                "vimdoc",
-                "javascript",
-                "typescript",
-                "c",
-                "lua",
-                "rust",
-            },
-            sync_install = false,
-            auto_install = true,
-            highlight = {
-                enable = true,
-                additional_vim_regex_highlighting = false,
-            },
-        })
     end,
+    init = function()
+        local ensure_installed = {
+            "vimdoc",
+            "javascript",
+            "typescript",
+            "c",
+            "lua",
+            "rust",
+            "gitcommit",
+        }
+        local already_installed = require("nvim-treesitter.config").get_installed()
+        local parsers_to_install = vim.iter(ensure_installed)
+            :filter(function(parser)
+                return not vim.tbl_contains(already_installed, parser)
+            end)
+            :totable()
+
+        require("nvim-treesitter").install(parsers_to_install)
+        vim.api.nvim_create_autocmd("FileType", {
+            callback = function()
+                pcall(vim.treesitter.start)
+                vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            end,
+        })
+    end
 }
