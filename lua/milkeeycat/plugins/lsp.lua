@@ -31,7 +31,7 @@ return {
                 "ts_ls",
                 "clangd",
                 "gopls",
-            }
+            },
         })
 
         vim.lsp.config("lua_ls", {

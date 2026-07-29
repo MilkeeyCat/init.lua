@@ -6,13 +6,13 @@ return {
 
         vim.filetype.add({
             extension = {
-                templ = "templ"
-            }
+                templ = "templ",
+            },
         })
         vim.filetype.add({
             extension = {
-                mk = "mk"
-            }
+                mk = "mk",
+            },
         })
 
         parser_config.meraki = {
@@ -50,5 +50,5 @@ return {
                 vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
             end,
         })
-    end
+    end,
 }
